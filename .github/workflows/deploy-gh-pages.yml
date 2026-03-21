@@ -33,8 +33,6 @@ jobs:
         # Set GITHUB_PAGES_REPO to your repository name (the part after the slash).
         # e.g. if your repo is github.com/username/my-portfolio, use "my-portfolio".
         # For a user/org site (username.github.io), set this to an empty string "".
-        env:
-          GITHUB_PAGES_REPO: ${{ github.event.repository.name }}
         run: npm run build
 
       - name: Upload Pages artifact
