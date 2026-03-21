@@ -201,7 +201,7 @@ export default function Hero() {
         <FluidDots />
       </div>
 
-      <div className="relative max-w-5xl mx-auto px-6 pt-28 pb-32 w-full flex flex-col lg:flex-row lg:items-center lg:justify-between gap-16" style={{ zIndex: 2 }}>
+      <div className="relative max-w-5xl mx-auto px-6 pt-20 pb-20 md:pt-28 md:pb-32 w-full flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8 lg:gap-16" style={{ zIndex: 2 }}>
 
         {/* ── Left column ── */}
         <div className="flex-1 min-w-0">
@@ -267,7 +267,7 @@ export default function Hero() {
           initial={{ opacity: 0, x: 24 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.7, delay: 0.55, ease: EASE }}
-          className="hidden lg:flex flex-col gap-3 w-64 xl:w-72 flex-shrink-0"
+          className="flex flex-col gap-3 w-full lg:w-64 xl:w-72 lg:flex-shrink-0"
         >
           {/* Currently card */}
           <div className="border border-white/[0.08] rounded-xl p-4 bg-white/[0.02]">
@@ -317,7 +317,7 @@ export default function Hero() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1, delay: 1, ease: EASE }}
-          className="absolute bottom-14 left-6 text-xs text-white/18 font-mono tracking-widest"
+          className="absolute bottom-6 md:bottom-14 left-6 text-xs text-white/18 font-mono tracking-widest"
         >
           Distributed Systems · ML · Mobile · AR/VR
         </motion.p>

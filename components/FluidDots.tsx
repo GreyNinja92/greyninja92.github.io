@@ -51,7 +51,8 @@ export default function FluidDots() {
       const w = canvas.offsetWidth;
       const h = canvas.offsetHeight;
 
-      const startY = h * REST_FRAC;
+      const isMobile = window.innerWidth < 768;
+      const startY = h * (isMobile ? 0.38 : REST_FRAC);
       const cols   = Math.floor(w / SPACING) + 1;
       // Cap rows so only a tiny buffer exists below the last wave line.
       // This prevents gravity-pulled interior dots from dragging the bottom
@@ -106,12 +107,14 @@ export default function FluidDots() {
     const ro = new ResizeObserver(resize);
     ro.observe(canvas);
 
+    const isTouchDevice = window.matchMedia("(hover: none)").matches;
+
     const onMouseMove = (e: MouseEvent) => {
       const rect = canvas.getBoundingClientRect();
       mouse.x = e.clientX - rect.left;
       mouse.y = e.clientY - rect.top;
     };
-    window.addEventListener("mousemove", onMouseMove);
+    if (!isTouchDevice) window.addEventListener("mousemove", onMouseMove);
 
     const draw = (t: number) => {
       const w = canvas.offsetWidth;
@@ -245,7 +248,7 @@ export default function FluidDots() {
     return () => {
       cancelAnimationFrame(animId);
       ro.disconnect();
-      window.removeEventListener("mousemove", onMouseMove);
+      if (!isTouchDevice) window.removeEventListener("mousemove", onMouseMove);
     };
   }, []);
 

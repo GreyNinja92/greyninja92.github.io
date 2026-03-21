@@ -6,7 +6,7 @@ export default function NotFound() {
       className="min-h-screen flex flex-col items-center justify-center gap-6 px-6"
       style={{ background: "#08080f" }}
     >
-      <p className="text-8xl font-bold text-white/10">404</p>
+      <p className="text-6xl sm:text-8xl font-bold text-white/10">404</p>
       <h1 className="text-2xl font-semibold text-slate-300">Page not found</h1>
       <Link
         href="/"

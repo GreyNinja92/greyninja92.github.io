@@ -9,12 +9,12 @@ export default function Publications() {
   return (
     <section
       id="publications"
-      className="py-32 px-6 border-t border-white/[0.06]"
+      className="py-16 md:py-32 px-6 border-t border-white/[0.06]"
     >
       <div className="max-w-5xl mx-auto">
         {/* Header */}
         <motion.div
-          className="mb-16"
+          className="mb-10 md:mb-16"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
