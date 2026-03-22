@@ -1,8 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-
-const EASE = [0.25, 0.1, 0.25, 1] as [number, number, number, number];
+import { EASE } from "@/lib/constants";
 
 interface ExperienceEntry {
   period: string;
@@ -28,8 +27,8 @@ const experiences: ExperienceEntry[] = [
     role: "Graduate Assistant",
     company: "UIC College of Engineering",
     description:
-      "Built and maintained internal web applications for UIC faculty, including HR Recruitment, Travel Request, PhD Evaluation, and Research Expenditure portals.",
-    tech: ["Laravel", "PHP", "React", "Node", "GraphQL", "MySQL", "Docker"],
+      "Built and maintained several sophisticated web applications used by UIC faculty and staff — including Internal HR Recruitment, Travel Request, PhD Evaluation, and Research Expenditure portals.",
+    tech: ["Laravel", "PHP", "React", "Node", "GraphQL", "Apollo", "Sequelize", "MySQL", "Docker"],
     current: false,
   },
   {
@@ -37,17 +36,8 @@ const experiences: ExperienceEntry[] = [
     role: "Software Engineer",
     company: "Wednesday Solutions",
     description:
-      "Delivered full-stack web projects, improved test coverage by 40%, and built CRON jobs for automated workflows.",
-    tech: ["React", "Redux", "Node", "GraphQL", "PostgreSQL", "Docker", "AWS"],
-    current: false,
-  },
-  {
-    period: "May 2019 – Jun 2019",
-    role: "iOS Engineer Intern",
-    company: "ReArk",
-    description:
-      "Built an iOS AR app for viewing 3D models and migrated a Unity AR application to native ARKit.",
-    tech: ["Swift", "ARKit", "Unity"],
+      "Worked on several frontend and backend web projects, implementing comprehensive testing strategies that improved coverage by 40% and building CRON jobs for scheduled tasks.",
+    tech: ["React", "Redux", "Node", "GraphQL", "Sequelize", "PostgreSQL", "Docker", "AWS"],
     current: false,
   },
 ];

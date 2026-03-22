@@ -129,26 +129,27 @@ export default function FluidDots({ paused = false }: { paused?: boolean }) {
       ctx.clearRect(0, 0, w, h);
 
       // ── 1. forces ────────────────────────────────────────────────────────
+      // Pre-compute wave displacement per column (shared by all rows in that column)
+      const cols = N > 0 ? dotCol[N - 1] + 1 : 1;
+      const waveByCol = new Float32Array(cols);
+      for (let c = 0; c < cols; c++) {
+        const theta  = waveT * 0.001  - c * 0.024;
+        const theta2 = waveT * 0.0017 - c * 0.036 + 1.6;
+        const theta3 = waveT * 0.0008 + c * 0.018 + 3.8;
+        const s  = Math.sin(theta);
+        const s2 = Math.sin(theta2);
+        const s3 = Math.sin(theta3);
+        const sharp  = s  * s  * s  * s  * Math.abs(s);
+        const sharp2 = s2 * s2 * s2 * s2 * Math.abs(s2);
+        const sharp3 = s3 * s3 * s3 * s3 * Math.abs(s3);
+        waveByCol[c] = sharp * WAVE_AMP + sharp2 * WAVE_AMP * 0.38 + sharp3 * WAVE_AMP * 0.22;
+      }
+
       for (let i = 0; i < N; i++) {
         let fx = (hX[i] - pX[i]) * SPRING_X;
         let fy: number;
 
-        // All rows share identical wave force — uniform spacing + hidden rows animate too
-        const c = dotCol[i];
-        const theta  = waveT * 0.001  - c * 0.024;
-        const theta2 = waveT * 0.0017 - c * 0.036 + 1.6;
-        const theta3 = waveT * 0.0008 + c * 0.018 + 3.8;
-
-        const s  = Math.sin(theta);
-        const s2 = Math.sin(theta2);
-        const s3 = Math.sin(theta3);
-
-        const sharp  = s  * s  * s  * s  * Math.abs(s);
-        const sharp2 = s2 * s2 * s2 * s2 * Math.abs(s2);
-        const sharp3 = s3 * s3 * s3 * s3 * Math.abs(s3);
-
-        const waveH = sharp * WAVE_AMP + sharp2 * WAVE_AMP * 0.38 + sharp3 * WAVE_AMP * 0.22;
-
+        const waveH = waveByCol[dotCol[i]];
         const targetY = hY[i] - waveH;
         fy = (targetY - pY[i]) * WAVE_K;
         if (pY[i] > hY[i] + 20) {

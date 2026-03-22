@@ -4,7 +4,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useState, useCallback } from "react";
 import FluidDots from "./FluidDots";
 
-const EASE = [0.25, 0.1, 0.25, 1] as [number, number, number, number];
+import { EASE } from "@/lib/constants";
+
 const EMAIL = "sakshamkhatod@gmail.com";
 
 /* ─── Animated background ─────────────────────────────────── */

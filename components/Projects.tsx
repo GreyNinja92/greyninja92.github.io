@@ -3,16 +3,17 @@
 import { motion } from "framer-motion";
 import { useRef } from "react";
 import { projects } from "@/data/projects";
-
-const EASE = [0.25, 0.1, 0.25, 1] as [number, number, number, number];
+import { EASE } from "@/lib/constants";
 
 export default function Projects() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const cardsRef = useRef<NodeListOf<HTMLElement> | null>(null);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    const cards =
-      containerRef.current?.querySelectorAll<HTMLElement>(".spotlight-card");
-    cards?.forEach((card) => {
+    if (!cardsRef.current && containerRef.current) {
+      cardsRef.current = containerRef.current.querySelectorAll<HTMLElement>(".spotlight-card");
+    }
+    cardsRef.current?.forEach((card) => {
       const rect = card.getBoundingClientRect();
       card.style.setProperty("--mouse-x", `${e.clientX - rect.left}px`);
       card.style.setProperty("--mouse-y", `${e.clientY - rect.top}px`);
