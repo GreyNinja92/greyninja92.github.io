@@ -10,6 +10,9 @@ export const metadata: Metadata = {
     template: "%s | Saksham Khatod",
   },
   description: "SDE @ AWS",
+  icons: {
+    icon: "/favicon.ico",
+  },
 };
 
 export default function RootLayout({
