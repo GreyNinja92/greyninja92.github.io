@@ -11,7 +11,7 @@ export const logos: Logo[] = [
   { name: "GraphQL", file: "graphql", ext: "svg" },
   { name: "Redux", file: "redux", ext: "svg" },
   { name: "PostgreSQL", file: "postgresql", ext: "svg" },
-  { name: "MongoDB", file: "mongodb", ext: "svg" },
+  { name: "Rust", file: "rust", ext: "svg" },
   { name: "Docker", file: "docker", ext: "svg" },
   { name: "Kubernetes", file: "kubernetes", ext: "svg" },
   { name: "AWS", file: "amazonaws", ext: "svg" },

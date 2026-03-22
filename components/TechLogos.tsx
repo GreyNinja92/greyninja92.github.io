@@ -225,8 +225,7 @@ export default function TechLogos() {
 
   const showDustbin = collectedSet.size > 0 || droppingSet.size > 0;
   const isLidOpen = isDustbinActive || droppingSet.size > 0;
-  const mid = Math.ceil(logos.length / 2);
-  const rows = [logos.slice(0, mid), logos.slice(mid)];
+  const dustbinScale = isDustbinActive ? 1.35 : 1 + collectedSet.size * 0.1;
   let idx = 0;
 
   return (
@@ -243,36 +242,32 @@ export default function TechLogos() {
         </motion.p>
 
         <motion.div
-          className="logo-group flex flex-col items-center gap-7 md:gap-8"
+          className="logo-group grid grid-cols-4 sm:grid-cols-8 justify-items-center gap-x-5 gap-y-7 sm:gap-x-6 md:gap-x-8 md:gap-y-8 mx-auto md:max-w-xl"
           variants={container}
           initial="hidden"
           whileInView="show"
           viewport={{ once: true }}
         >
-          {rows.map((row, ri) => (
-            <div key={ri} className="flex justify-center items-start gap-x-7 md:gap-x-10">
-              {row.map((logo) => {
-                const logoIndex = idx++;
-                return (
-                  <LogoItem
-                    key={logo.name}
-                    logo={logo}
-                    floatDelay={`${(logoIndex * 0.22).toFixed(2)}s`}
-                    logoIndex={logoIndex}
-                    cursor={cursor}
-                    isCollected={collectedSet.has(logo.name)}
-                    isDropping={droppingSet.has(logo.name)}
-                    isReturning={isReturning}
-                    dropTarget={dropTarget}
-                    dropCount={dropCounts[logo.name] ?? 0}
-                    onCollect={() => {
-                      if (!isTouch) setCollectedSet(prev => new Set([...prev, logo.name]));
-                    }}
-                  />
-                );
-              })}
-            </div>
-          ))}
+          {logos.map((logo) => {
+            const logoIndex = idx++;
+            return (
+              <LogoItem
+                key={logo.name}
+                logo={logo}
+                floatDelay={`${(logoIndex * 0.22).toFixed(2)}s`}
+                logoIndex={logoIndex}
+                cursor={cursor}
+                isCollected={collectedSet.has(logo.name)}
+                isDropping={droppingSet.has(logo.name)}
+                isReturning={isReturning}
+                dropTarget={dropTarget}
+                dropCount={dropCounts[logo.name] ?? 0}
+                onCollect={() => {
+                  if (!isTouch) setCollectedSet(prev => new Set([...prev, logo.name]));
+                }}
+              />
+            );
+          })}
         </motion.div>
       </div>
 
@@ -282,8 +277,9 @@ export default function TechLogos() {
         className="fixed bottom-6 right-6 select-none z-50 overflow-visible"
         animate={{
           opacity: showDustbin ? 1 : 0,
-          scale: isDustbinActive ? 1.35 : 1,
-          y: showDustbin ? 0 : 20,
+          scale: dustbinScale,
+          y: showDustbin ? -(dustbinScale - 1) * 30 : 20,
+          x: showDustbin ? -(dustbinScale - 1) * 30 : 0,
         }}
         transition={{ type: "spring", stiffness: 300, damping: 22 }}
         onMouseEnter={() => { setIsDustbinActive(true); triggerDrop(); }}
