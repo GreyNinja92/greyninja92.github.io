@@ -23,7 +23,11 @@ export default function Publications() {
           <p className="text-xs tracking-[0.18em] uppercase text-white/30 font-medium mb-3">
             Research
           </p>
-          <h2 className="text-4xl md:text-5xl font-bold text-white tracking-tight">
+          <h2 className="flex items-center gap-3 text-4xl md:text-5xl font-bold text-white tracking-tight">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="text-white/40 flex-shrink-0">
+              <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
+              <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
+            </svg>
             Publications
           </h2>
         </motion.div>

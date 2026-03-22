@@ -25,8 +25,10 @@ const CURSOR_GLOW_R = 220;    // wide glow to reveal hidden dots below waves
 const WAVE_GLOW_R   = 70;     // small glow for wave line brightness boost
 const HIDDEN_ROWS   = 30;     // extra invisible dot rows below the wave block
 
-export default function FluidDots() {
+export default function FluidDots({ paused = false }: { paused?: boolean }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const pausedRef = useRef(paused);
+  useEffect(() => { pausedRef.current = paused; }, [paused]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -46,6 +48,7 @@ export default function FluidDots() {
     let N = 0;
 
     let mouse = { x: -9999, y: -9999 };
+    let frozenT = 0;
 
     const init = () => {
       const w = canvas.offsetWidth;
@@ -117,6 +120,8 @@ export default function FluidDots() {
     if (!isTouchDevice) window.addEventListener("mousemove", onMouseMove);
 
     const draw = (t: number) => {
+      if (!pausedRef.current) frozenT = t;
+      const waveT = frozenT;
       const w = canvas.offsetWidth;
       const h = canvas.offsetHeight;
 
@@ -130,9 +135,9 @@ export default function FluidDots() {
 
         // All rows share identical wave force — uniform spacing + hidden rows animate too
         const c = dotCol[i];
-        const theta  = t * 0.001  - c * 0.024;
-        const theta2 = t * 0.0017 - c * 0.036 + 1.6;
-        const theta3 = t * 0.0008 + c * 0.018 + 3.8;
+        const theta  = waveT * 0.001  - c * 0.024;
+        const theta2 = waveT * 0.0017 - c * 0.036 + 1.6;
+        const theta3 = waveT * 0.0008 + c * 0.018 + 3.8;
 
         const s  = Math.sin(theta);
         const s2 = Math.sin(theta2);

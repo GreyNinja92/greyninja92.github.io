@@ -40,7 +40,11 @@ export default function Education() {
           <p className="text-xs tracking-[0.18em] uppercase text-white/30 font-medium mb-3">
             Background
           </p>
-          <h2 className="text-4xl md:text-5xl font-bold text-white tracking-tight">
+          <h2 className="flex items-center gap-3 text-4xl md:text-5xl font-bold text-white tracking-tight">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="text-white/40 flex-shrink-0">
+              <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
+              <path d="M6 12v5c3 3 9 3 12 0v-5" />
+            </svg>
             Education
           </h2>
         </motion.div>

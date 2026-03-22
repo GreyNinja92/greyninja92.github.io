@@ -33,7 +33,11 @@ export default function Projects() {
           <p className="text-xs tracking-[0.18em] uppercase text-white/30 font-medium mb-3">
             Work
           </p>
-          <h2 className="text-4xl md:text-5xl font-bold text-white tracking-tight">
+          <h2 className="flex items-center gap-3 text-4xl md:text-5xl font-bold text-white tracking-tight">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="text-white/40 flex-shrink-0">
+              <polyline points="16 18 22 12 16 6" />
+              <polyline points="8 6 2 12 8 18" />
+            </svg>
             Projects
           </h2>
         </motion.div>

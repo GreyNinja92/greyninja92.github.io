@@ -62,13 +62,4 @@ export const projects: Project[] = [
     tech: ["Scala", "Akka HTTP", "AWS EC2"],
     video: true,
   },
-  {
-    title: "Name Generator",
-    description:
-      "LSTM model trained on names corpus to generate plausible names from a starting letter, with probabilistic filtering.",
-    gradient: "linear-gradient(160deg, #2FB8FF 0%, #9EECD9 100%)",
-    illustration: "",
-    tech: ["Python", "PyTorch", "NumPy"],
-    video: false,
-  },
 ];

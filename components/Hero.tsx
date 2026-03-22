@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import FluidDots from "./FluidDots";
 
 const EASE = [0.25, 0.1, 0.25, 1] as [number, number, number, number];
@@ -105,7 +105,7 @@ function HeroBackground() {
 }
 
 /* ─── Copy-to-clipboard button ────────────────────────────── */
-function CopyEmailButton() {
+function CopyEmailButton({ onMouseEnter, onMouseLeave }: { onMouseEnter?: () => void; onMouseLeave?: () => void }) {
   const [state, setState] = useState<"idle" | "copied">("idle");
 
   const handleClick = async () => {
@@ -125,9 +125,8 @@ function CopyEmailButton() {
   };
 
   return (
-    /* Rotating border beam wrapper */
-    <div className="beam-border">
-      <div className="beam-border-inner">
+    <div className="grey-border-hover" onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
+      <div className="grey-border-hover-inner">
         <button
           onClick={handleClick}
           className="relative inline-flex items-center gap-2 px-5 py-2.5 text-sm font-medium text-white/60 hover:text-white/90 transition-colors duration-200 overflow-hidden"
@@ -189,6 +188,10 @@ const stats = [
 
 /* ─── Main Hero ───────────────────────────────────────────── */
 export default function Hero() {
+  const [wavePaused, setWavePaused] = useState(false);
+  const pauseWave = useCallback(() => setWavePaused(true), []);
+  const resumeWave = useCallback(() => setWavePaused(false), []);
+
   return (
     <section
       className="relative min-h-screen flex flex-col justify-center overflow-hidden"
@@ -198,7 +201,7 @@ export default function Hero() {
 
       {/* Fluid dot layer */}
       <div className="absolute inset-0 pointer-events-none" style={{ zIndex: 1 }}>
-        <FluidDots />
+        <FluidDots paused={wavePaused} />
       </div>
 
       <div className="relative max-w-5xl mx-auto px-6 pt-20 pb-20 md:pt-28 md:pb-32 w-full flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8 lg:gap-16" style={{ zIndex: 2 }}>
@@ -237,7 +240,7 @@ export default function Hero() {
               transition={{ duration: 0.65, delay: 0.4, ease: EASE }}
               className="text-base md:text-lg font-medium text-white/35 tracking-wide"
             >
-              Software Engineer · AWS
+              SDE @ AWS
             </motion.p>
           </div>
 
@@ -248,17 +251,21 @@ export default function Hero() {
             transition={{ duration: 0.55, delay: 0.6, ease: EASE }}
             className="flex flex-wrap items-center gap-3"
           >
-            <a
-              href="/#projects"
-              className="group inline-flex items-center gap-2 px-5 py-2.5 rounded-md text-sm font-semibold text-white transition-opacity duration-150 hover:opacity-90"
-              style={{ background: "linear-gradient(135deg, #1d4ed8 0%, #2563eb 50%, #3b82f6 100%)" }}
-            >
-              View work
-              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="transition-transform duration-200 group-hover:translate-x-0.5">
-                <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-            </a>
-            <CopyEmailButton />
+            <div className="rainbow-border-hover" onMouseEnter={pauseWave} onMouseLeave={resumeWave}>
+              <div className="rainbow-border-hover-inner">
+                <a
+                  href="/#projects"
+                  className="group inline-flex items-center gap-2 px-5 py-2.5 rounded-[4px] text-sm font-semibold text-white transition-opacity duration-150 hover:opacity-90"
+                  style={{ background: "linear-gradient(135deg, #1d4ed8 0%, #2563eb 50%, #3b82f6 100%)" }}
+                >
+                  View work
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="transition-transform duration-200 group-hover:translate-x-0.5">
+                    <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </a>
+              </div>
+            </div>
+            <CopyEmailButton onMouseEnter={pauseWave} onMouseLeave={resumeWave} />
           </motion.div>
         </div>
 
@@ -270,7 +277,7 @@ export default function Hero() {
           className="flex flex-col gap-3 w-full lg:w-64 xl:w-72 lg:flex-shrink-0"
         >
           {/* Currently card */}
-          <div className="border border-white/[0.08] rounded-xl p-4 bg-white/[0.02]">
+          <div className="border border-white/[0.08] rounded-xl p-4 bg-white/[0.02] backdrop-blur-md">
             <p className="text-[10px] tracking-[0.18em] uppercase text-white/25 font-medium mb-3">Currently</p>
             <div className="flex items-start gap-2.5">
               <span className="relative flex h-1.5 w-1.5 mt-1.5 flex-shrink-0">
@@ -287,7 +294,7 @@ export default function Hero() {
           {/* Stats grid */}
           <div className="grid grid-cols-2 gap-2">
             {stats.map((s) => (
-              <div key={s.label} className="border border-white/[0.06] rounded-lg p-3 bg-white/[0.01]">
+              <div key={s.label} className="border border-white/[0.06] rounded-lg p-3 bg-white/[0.01] backdrop-blur-md">
                 <p className="text-xl font-bold text-white/80 tracking-tight">{s.value}</p>
                 <p className="text-[10px] font-medium text-white/30 mt-0.5">{s.label}</p>
               </div>
@@ -317,9 +324,9 @@ export default function Hero() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1, delay: 1, ease: EASE }}
-          className="absolute bottom-6 md:bottom-14 left-6 text-xs text-white/18 font-mono tracking-widest"
+          className="absolute bottom-6 md:bottom-14 left-6 text-sm text-white/50 font-mono tracking-widest"
         >
-          Distributed Systems · ML · Mobile · AR/VR
+          Cloud · Distributed Systems · Full Stack · LLMs
         </motion.p>
       </div>
     </section>

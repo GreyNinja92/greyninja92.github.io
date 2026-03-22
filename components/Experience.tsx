@@ -20,7 +20,7 @@ const experiences: ExperienceEntry[] = [
     company: "AWS",
     description:
       "Building and scaling cloud infrastructure and services at Amazon Web Services.",
-    tech: [],
+    tech: ["ECS", "EC2", "Kinesis", "Lambda", "S3", "IAM", "Route53", "CloudWatch"],
     current: true,
   },
   {
@@ -67,7 +67,11 @@ export default function Experience() {
           <p className="text-xs tracking-[0.18em] uppercase text-white/30 font-medium mb-3">
             Career
           </p>
-          <h2 className="text-4xl md:text-5xl font-bold text-white tracking-tight">
+          <h2 className="flex items-center gap-3 text-4xl md:text-5xl font-bold text-white tracking-tight">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="text-white/40 flex-shrink-0">
+              <rect x="2" y="7" width="20" height="14" rx="2" />
+              <path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2" />
+            </svg>
             Experience
           </h2>
         </motion.div>
